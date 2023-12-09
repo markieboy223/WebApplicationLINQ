@@ -23,10 +23,21 @@ namespace WebApplication1.Controllers
             return students;
         }
 
+        //Filter students older than 21
         [HttpGet("GetStudentsOlderThan21")]
         public async Task<IEnumerable<Student>> GetStudentsOlderThan21()
         {
             var students =  await _context.Student.Where(s => s.Leeftijd > 21).ToListAsync();
+            return students;
+        }
+
+        [HttpGet("GetStudentAndOpleiding")]
+        public async Task<IEnumerable<Object>> GetStudentAndOpleiding()
+        {
+            var students = await _context.Student
+                .Join(_context.Opleidingen, s => s.OpleidingId, o => o.Id, (s, o) => new { s.Name, OpleidingName = o.Name })
+                .ToListAsync();
+
             return students;
         }
 
