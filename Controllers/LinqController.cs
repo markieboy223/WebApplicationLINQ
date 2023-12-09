@@ -42,5 +42,13 @@ namespace WebApplication1.Controllers
             return students;
         }
 
+        //Average
+        [HttpGet("GetAverageAge")]
+        public async Task<object> GetAverageAge()
+        {
+            var students = await _context.Student.Select(s => s.Leeftijd).AverageAsync();
+            return students;
+        }
+
     }
 }
