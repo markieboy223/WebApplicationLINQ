@@ -31,6 +31,7 @@ namespace WebApplication1.Controllers
             return students;
         }
 
+        //Join
         [HttpGet("GetStudentAndOpleiding")]
         public async Task<IEnumerable<Object>> GetStudentAndOpleiding()
         {
