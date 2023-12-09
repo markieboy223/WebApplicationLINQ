@@ -13,6 +13,17 @@ namespace WebApplication1.Data
             : base(options)
         {
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Student>()
+                .HasOne(s => s.Opleiding)
+                .WithMany(o => o.studenten)
+                .HasForeignKey(s => s.OpleidingId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            base.OnModelCreating(modelBuilder);
+        }
 
         public DbSet<WebApplication1.Models.Student> Student { get; set; } = default!;
         public DbSet<WebApplication1.Models.Docent> Docent { get; set; } = default!;
