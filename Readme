@@ -1,0 +1,29 @@
+Some dummy data for database:
+-- Insert dummy data for Opleiding
+INSERT INTO Opleidingen (Name)
+VALUES ('Computer Science'),
+       ('Electrical Engineering'),
+       ('Business Administration');
+
+-- Insert dummy data for Vak
+INSERT INTO Vakken (Name, Cijfer)
+VALUES 
+  ('Programming', 8.5),
+  ('Database Management', 7.9),
+  ('Algorithms', 9.2),
+  ('Digital Circuits', 7.8),
+  ('Marketing Principles', 8.0);
+
+-- Insert dummy data for Gebruiker (Student)
+INSERT INTO Student(Name, Leeftijd, Woonplaats, OpleidingId)
+VALUES 
+  ('John Doe', 20, 'Cityville', 1),
+  ('Alice Johnson', 22, 'Townsville', 2),
+  ('Bob Smith', 21, 'Villagetown', 3);
+
+-- Insert dummy data for Docent
+INSERT INTO Docent (Name, Leeftijd, Woonplaats, OpleidingId, Eigenschap)
+VALUES 
+  ('Dr. Smith', 40, 'Townsville', 1, 'Teaching'),
+  ('Prof. Brown', 35, 'Cityville', 2, 'Research'),
+  ('Ms. Davis', 38, 'Villagetown', 3, 'Administration');
