@@ -66,5 +66,12 @@ namespace WebApplication1.Controllers
             return students;
         }
 
+        //OrderBy age
+        [HttpGet("OrderByAgeDesc")]
+        public async Task<IEnumerable<Student>> OrderByAgeDesc()
+        {
+            var students = await _context.Student.OrderByDescending(s => s.Leeftijd).ToListAsync();
+            return students;
+        }
     }
 }
