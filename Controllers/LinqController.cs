@@ -50,5 +50,21 @@ namespace WebApplication1.Controllers
             return students;
         }
 
+        //Groupby opleiding
+        [HttpGet("GroupByOpleiding")]
+        public async Task<IEnumerable<object>> GroupByOpleiding()
+        {
+            var students = await _context.Student
+                .GroupBy(s => s.OpleidingId)
+                .Select(group => new
+            {
+                OpleidingId = group.Key,
+                OpleidingNaam = group.First().Opleiding.Name,
+                Studenten = group.Count(),
+            })
+                .ToListAsync();
+            return students;
+        }
+
     }
 }
