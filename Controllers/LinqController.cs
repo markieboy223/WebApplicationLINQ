@@ -155,5 +155,41 @@ namespace WebApplication1.Controllers
             var docenten = await _context.Docent.Where(d => d.Eigenschap.Equals("Research")).Select(n => n.Name).ToListAsync();
             return docenten;
         }
+
+        [HttpGet("top3studenten")]
+        public async Task<IEnumerable<object>> Top3Studenten()
+        {
+            var top3 = await _context.Student
+                .GroupBy(s => new { s.Name, s.OpleidingId })
+                .Select(g => new
+                {
+                    Naam = g.Key.Name,
+                    OpleidingId = g.Key.OpleidingId,
+                    GemiddeldCijfer = g.Join(_context.Vakken, s => s.OpleidingId, v => v.OpleidingId, (s, v) => v.Cijfer).Average(),
+                })
+                .OrderByDescending(s => s.GemiddeldCijfer)
+                .GroupBy(s => s.OpleidingId)
+                .SelectMany(g => g.Take(3))
+                .ToListAsync();
+
+            return top3;
+        }
+
+        [HttpGet("AantalVakkenPerOpleiding")]
+        public async Task<IEnumerable<object>> AantalVakkenPerOpleiding()
+        {
+            var vakken = await _context.Opleidingen
+                .GroupBy(o => new {o.Id, o.Name})
+                .Select(g => new
+                {
+                    opleiding = g.Key.Name,
+                    Vakken = g.Join(_context.Vakken, o => o.Id, v => v.OpleidingId, (o, v) => v.Id).Count()
+
+                })
+                .ToListAsync();
+                
+            return vakken;
+        }
+
     }
 }
